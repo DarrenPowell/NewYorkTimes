@@ -1,0 +1,41 @@
+<div class="center">
+    <h1>Search</h1>
+</div>
+<br>
+<form #searchForm='ngForm' (ngSubmit)='search(searchForm)'>
+    <mat-form-field>
+        <input matInput placeholder="Keyword" required #keyword='ngModel' name='keyword' [(ngModel)]='searchData.q'>
+        <mat-error *ngIf="keyword.invalid && (keyword.dirty || keyword.touched)">
+            <div *ngIf="keyword.errors.required">
+                Keyword is required.
+            </div>
+        </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput [matDatepicker]="startDatePicker" placeholder="Start Date" [max]="today" #startDate='ngModel'
+            name='startDate' [(ngModel)]='searchData.begin_date'>
+        <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #startDatePicker></mat-datepicker>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput [matDatepicker]="endDatePicker" placeholder="End Date" [max]="today" #endDate='ngModel'
+            name='endDate' [(ngModel)]='searchData.end_date'>
+        <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #endDatePicker></mat-datepicker>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Sort By</mat-label>
+        <mat-select required [(value)]="searchData.sort">
+            <mat-option value="newest">Newest</mat-option>
+            <mat-option value="oldest">Oldest</mat-option>
+            <mat-option value="relevance">Relevance</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button type='submit'>Search</button>
+</form>
+<br>
+<app-article-search-results></app-article-search-results>
